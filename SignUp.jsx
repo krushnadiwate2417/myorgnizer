@@ -69,10 +69,6 @@ const SignUpPage = () => {
                 setEmail(e.target.value);
               }}
             />
-            <p className={`signup-p ${hiding2}`}>
-              {errText}
-              <Link to={"/login"}>Login</Link>
-            </p>
           </div>
           <div>
             <button type="submit" className="signup-button">
@@ -80,6 +76,10 @@ const SignUpPage = () => {
             </button>
           </div>
         </form>
+        <p className={`signup-p ${hiding2}`}>
+          {errText}
+          <Link to={"/login"}>Login</Link>
+        </p>
       </div>
     </>
   );
