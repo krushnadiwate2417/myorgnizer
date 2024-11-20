@@ -27,7 +27,6 @@ const Login = () => {
       }
 
       const result = await response.json();
-      console.log(result);
       if (result.msg == "success") {
         navigate("/home");
       }
