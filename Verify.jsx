@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Timer from "./Timer";
-
+import Timer from "./Reuseables/Timer";
 const Verify = () => {
   const [hide, setHide] = useState("hide");
   const [disable, setDisable] = useState(false);
