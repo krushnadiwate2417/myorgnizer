@@ -30,6 +30,7 @@ const Login = () => {
       const result = await response.json();
       if (result.msg == "success") {
         localStorage.setItem("userToken", result.token);
+        console.log("added");
         navigate("/home");
         console.log(result);
       }
