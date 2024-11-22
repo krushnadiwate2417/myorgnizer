@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Shimmer from "./Shimmer";
+import Form from "./Reuseables/Form";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -42,17 +43,12 @@ const Login = () => {
         <Shimmer />
       </div>
       <div>
-        <form onSubmit={handleSubmit}>
-          <label>Enter Email ID</label>
-          <input
-            placeholder="Type here ..."
-            type="email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-          <button type="submit">Login</button>
-        </form>
+        <Form
+          email={email}
+          setEmail={setEmail}
+          action={"Log In"}
+          handleSubmit={handleSubmit}
+        />
       </div>
     </>
   );

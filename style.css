@@ -7,7 +7,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 .SignUp-gric-c {
@@ -98,4 +97,25 @@
 
 .hide {
   display: none;
+}
+
+.header-flex {
+  display: flex;
+  height: 10vw;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+}
+
+.header-list-flex {
+  display: flex;
+  height: 10vw;
+  gap: 10px;
+  margin-right: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-list-flex > li {
+  list-style: none;
 }

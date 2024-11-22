@@ -4,11 +4,13 @@ import SignUpPage from "./SignUp";
 import Verify from "./Verify";
 import Login from "./Login";
 import Home from "./Home";
+import Header from "./Header";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
 const App = () => {
   return (
     <>
+      <Header />
       <Outlet />
     </>
   );

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import Form from "./Reuseables/Form";
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [errText, setErrText] = useState("");
@@ -25,6 +26,7 @@ const SignUpPage = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            // "Authorization": "bearar "
           },
           body: JSON.stringify({ email }),
         }
@@ -53,29 +55,12 @@ const SignUpPage = () => {
         <Shimmer />
       </div>
       <div className="SignUp-flex-c">
-        <form onSubmit={handleSubmit} className="SignUp-gric-c">
-          <div>
-            <label className="signup-label">Email Id</label>
-          </div>
-          <div>
-            <input
-              className="signup-input"
-              placeholder="Enter here..."
-              type="email"
-              name="email"
-              value={email}
-              required
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-            />
-          </div>
-          <div>
-            <button type="submit" className="signup-button">
-              Sign Up
-            </button>
-          </div>
-        </form>
+        <Form
+          action={"Sign Up"}
+          handleSubmit={handleSubmit}
+          setEmail={setEmail}
+          email={email}
+        />
         <p className={`signup-p ${hiding2}`}>
           {errText}
           <Link to={"/login"}>Login</Link>
