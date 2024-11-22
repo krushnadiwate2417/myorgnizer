@@ -29,7 +29,9 @@ const Login = () => {
 
       const result = await response.json();
       if (result.msg == "success") {
+        localStorage.setItem("userToken", result.token);
         navigate("/home");
+        console.log(result);
       }
       setHidden("hide");
     } catch (error) {
