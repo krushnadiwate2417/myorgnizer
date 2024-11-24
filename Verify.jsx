@@ -1,9 +1,35 @@
-import { useState } from "react";
+import UserContext from "./Context/UserContext";
+import { useState, useContext } from "react";
 import Timer from "./Reuseables/Timer";
 const Verify = () => {
   const [hide, setHide] = useState("hide");
   const [disable, setDisable] = useState(false);
   const [start, setStart] = useState(false);
+  const { data } = useContext(UserContext);
+  const email = data.email;
+
+  const handleVerify = async () => {
+    try {
+      const response = await fetch(
+        "https://rgstudentsmanagementbackend.onrender.com/api/v1/organizemeusers/orguserrequestotp",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error in Fetching");
+      }
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.log("Error in Verify" + error);
+    }
+  };
 
   console.log("IN VERIFY", start);
   return (
@@ -21,6 +47,8 @@ const Verify = () => {
                 setHide("");
                 setDisable(true);
                 setStart(true);
+                handleVerify();
+                console.log(data.email);
               }}
             >
               Click Here to Verify

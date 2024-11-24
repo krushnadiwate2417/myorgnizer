@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Otp from "./inputOtp";
+import Otp from "./Input-Otp";
 
 const Timer = ({ setDisable, start, setStart }) => {
   const [seconds, setSeconds] = useState(5);

@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import UserContext from "../Context/UserContext";
+
 const Form = ({ action, handleSubmit, setEmail, email }) => {
+  const { setUserEmail } = useContext(UserContext);
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -14,6 +19,7 @@ const Form = ({ action, handleSubmit, setEmail, email }) => {
             required
             onChange={(e) => {
               setEmail(e.target.value);
+              setUserEmail(e.target.value);
             }}
           />
         </div>

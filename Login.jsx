@@ -28,11 +28,15 @@ const Login = () => {
       }
 
       const result = await response.json();
-      if (result.msg == "success") {
+      if (result?.msg == "success" && result?.isemailerified == true) {
         localStorage.setItem("userToken", result.token);
         console.log("added");
         navigate("/home");
         console.log(result);
+      }
+
+      if (result?.msg == "success" && result?.isemailerified == false) {
+        navigate("/verify");
       }
       setHidden("hide");
     } catch (error) {
