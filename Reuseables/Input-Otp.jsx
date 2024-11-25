@@ -4,7 +4,6 @@ import UserContext from "../Context/UserContext";
 import { Navigate, useFetcher } from "react-router-dom";
 const Otp = () => {
   const [values, setValues] = useState(["", "", "", "", ""]); // State for the input values
-  const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const inputs = useRef([]); // References for the input fields
   const { data } = useContext(UserContext);

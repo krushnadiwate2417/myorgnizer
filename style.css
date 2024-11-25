@@ -99,9 +99,8 @@
   display: none;
 }
 
-.header-flex {
+header {
   display: flex;
-  height: 10vw;
   justify-content: space-between;
   align-items: center;
   border: 1px solid black;
@@ -109,7 +108,6 @@
 
 .header-list-flex {
   display: flex;
-  height: 10vw;
   gap: 10px;
   margin-right: 20px;
   justify-content: center;
@@ -118,4 +116,89 @@
 
 .header-list-flex > li {
   list-style: none;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: 15% 85%;
+  border: 1px solid black;
+}
+
+.Home-sidebar {
+  border-right: 1px solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.Main-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Main-content > div > input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.Main-content-head {
+  display: flex;
+}
+
+/* The sidepanel menu */
+.sidepanel {
+  height: 100vh; /* Specify a height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+}
+
+/* The sidepanel links */
+.sidepanel p {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidepanel p:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidepanel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style the button that is used to open the sidepanel */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+.home-main-content {
+  height: 100vh;
 }

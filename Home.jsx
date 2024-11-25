@@ -1,9 +1,23 @@
+import { Link, Outlet, useParams } from "react-router-dom";
+import MySidebar from "./Reuseables/MySidebar";
+import Expenses from "./Modules/Expenses";
+
 const Home = () => {
   const userToken = localStorage.getItem("userToken");
   console.log(userToken);
+
   return (
     <>
-      <div>HOME PAGE</div>
+      <div className="home-grid">
+        <div className="Home-sidebar">
+          <MySidebar>
+            <Link to={"/home/expenses"}>My Expenses</Link>
+          </MySidebar>
+        </div>
+        <div className="home-main-content">
+          <Outlet />
+        </div>
+      </div>
     </>
   );
 };

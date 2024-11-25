@@ -7,6 +7,8 @@ import Home from "./Home";
 import Header from "./Header";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import UserContext from "./Context/UserContext";
+import Expenses from "./Modules/Expenses";
+import WelcomePage from "./Modules/WelcomePage";
 
 const App = () => {
   const [Useremail, setUserEmail] = useState("");
@@ -17,7 +19,10 @@ const App = () => {
     <>
       <UserContext.Provider value={{ data, setUserEmail }}>
         <Header />
-        <Outlet />
+
+        <main>
+          <Outlet />
+        </main>
       </UserContext.Provider>
     </>
   );
@@ -43,6 +48,16 @@ const appRouter = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
+        children: [
+          {
+            path: "/home",
+            element: <WelcomePage />,
+          },
+          {
+            path: "expenses",
+            element: <Expenses />,
+          },
+        ],
       },
     ],
   },
