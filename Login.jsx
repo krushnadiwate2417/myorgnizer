@@ -2,46 +2,59 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import Form from "./Reuseables/Form";
+import push from "./jsFunctions/push";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [hidden, setHidden] = useState("hide");
   const navigate = useNavigate();
 
+  const api =
+    "https://rgstudentsmanagementbackend.onrender.com/api/v1/organizemeusers/login";
   const handleSubmit = async (e) => {
     e.preventDefault();
     setHidden("");
-    try {
-      const response = await fetch(
-        "https://rgstudentsmanagementbackend.onrender.com/api/v1/organizemeusers/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email }),
-        }
-      );
-
-      if (!response) {
-        throw new Error("Something went wrong in Fetching");
-      }
-
-      const result = await response.json();
-      if (result?.msg == "success" && result?.isemailerified == true) {
-        localStorage.setItem("userToken", result.token);
-        console.log("added");
-        navigate("/home");
-        console.log(result);
-      }
-
-      if (result?.msg == "success" && result?.isemailerified == false) {
-        navigate("/verify");
-      }
-      setHidden("hide");
-    } catch (error) {
-      console.log("Error in Login", error);
+    const result = await push(api, { email });
+    if (result?.msg == "success" && result?.isemailerified == true) {
+      localStorage.setItem("userToken", result.token);
+      console.log("added");
+      navigate("/home");
+      console.log(result);
     }
+    if (result?.msg == "success" && result?.isemailerified == false) {
+      navigate("/verify");
+    }
+    // try {
+    //   const response = await fetch(
+    //     "https://rgstudentsmanagementbackend.onrender.com/api/v1/organizemeusers/login",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({ email }),
+    //     }
+    //   );
+
+    //   if (!response) {
+    //     throw new Error("Something went wrong in Fetching");
+    //   }
+
+    //   const result = await response.json();
+    // if (result?.msg == "success" && result?.isemailerified == true) {
+    //   localStorage.setItem("userToken", result.token);
+    //   console.log("added");
+    //   navigate("/home");
+    //   console.log(result);
+    // }
+
+    // if (result?.msg == "success" && result?.isemailerified == false) {
+    //   navigate("/verify");
+    // }
+    //   setHidden("hide");
+    // } catch (error) {
+    //   console.log("Error in Login", error);
+    // }
   };
 
   return (

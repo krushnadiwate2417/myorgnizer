@@ -1,38 +1,47 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../Context/UserContext";
-import { Navigate, useFetcher } from "react-router-dom";
+import push from "../jsFunctions/push";
 const Otp = () => {
   const [values, setValues] = useState(["", "", "", "", ""]); // State for the input values
   const navigate = useNavigate();
   const inputs = useRef([]); // References for the input fields
   const { data } = useContext(UserContext);
   const email = data.email;
-
+  const val = {
+    email: email,
+    otp: values.join(""),
+  };
+  const api =
+    "https://rgstudentsmanagementbackend.onrender.com/api/v1/organizemeusers/orguserverifyotp";
   const handleOtp = async () => {
-    try {
-      const response = await fetch(
-        "https://rgstudentsmanagementbackend.onrender.com/api/v1/organizemeusers/orguserverifyotp",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email: email, otp: values.join("") }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Error in Fetching");
-      }
-
-      const result = await response.json();
-      if (result.message === "OTP verified successfully!!") {
-        navigate("/home");
-      }
-    } catch (error) {
-      console.log("Error in OTP VERIFICATION " + error);
+    const result = await push(api, val);
+    if (result.message === "OTP verified successfully!!") {
+      navigate("/home");
     }
+    // try {
+    //   const response = await fetch(
+    //     "https://rgstudentsmanagementbackend.onrender.com/api/v1/organizemeusers/orguserverifyotp",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({ email: email, otp: values.join("") }),
+    //     }
+    //   );
+
+    //   if (!response.ok) {
+    //     throw new Error("Error in Fetching");
+    //   }
+
+    //   const result = await response.json();
+    //   if (result.message === "OTP verified successfully!!") {
+    //     navigate("/home");
+    //   }
+    // } catch (error) {
+    //   console.log("Error in OTP VERIFICATION " + error);
+    // }
   };
 
   const handleInputChange = (e, index) => {

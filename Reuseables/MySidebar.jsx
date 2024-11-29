@@ -19,7 +19,7 @@ const MySidebar = ({ children }) => {
       <button
         className="openbtn"
         onClick={() => {
-          setWidth(250);
+          setWidth(230);
         }}
       >
         &#9776; Toggle Sidepanel
