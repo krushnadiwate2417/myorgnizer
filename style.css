@@ -202,3 +202,33 @@ input[type="number"] {
 .home-main-content {
   height: 100vh;
 }
+
+.profile-image {
+  padding: 0px;
+  margin: 0px;
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 30px;
+  cursor: pointer;
+}
+
+.profile-box {
+  height: fit-content;
+  width: 0;
+  position: absolute;
+  z-index: 1;
+  top: 5;
+  right: 0;
+  overflow-x: hidden;
+  background-color: rgb(93, 88, 88);
+}
+
+.profile-box p {
+  color: white;
+}
+
+.closeBtn {
+  border: none;
+  background-color: transparent;
+  color: white;
+}

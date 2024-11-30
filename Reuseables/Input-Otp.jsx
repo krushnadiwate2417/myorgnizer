@@ -1,7 +1,7 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../Context/UserContext";
-import push from "../jsFunctions/push";
+import post from "../jsFunctions/post";
 const Otp = () => {
   const [values, setValues] = useState(["", "", "", "", ""]); // State for the input values
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const Otp = () => {
   const api =
     "https://rgstudentsmanagementbackend.onrender.com/api/v1/organizemeusers/orguserverifyotp";
   const handleOtp = async () => {
-    const result = await push(api, val);
+    const result = await post(api, val);
     if (result.message === "OTP verified successfully!!") {
       navigate("/home");
     }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import Form from "./Reuseables/Form";
-import push from "./jsFunctions/push";
+import post from "./jsFunctions/post";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +14,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setHidden("");
-    const result = await push(api, { email });
+    const result = await post(api, { email });
     if (result?.msg == "success" && result?.isemailerified == true) {
       localStorage.setItem("userToken", result.token);
       console.log("added");

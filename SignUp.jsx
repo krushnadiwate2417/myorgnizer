@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import Form from "./Reuseables/Form";
-import push from "./jsFunctions/push";
+import post from "./jsFunctions/post";
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [errText, setErrText] = useState("");
   const [hiding, sethiding] = useState("hide");
   const [hiding2, setHiding2] = useState("hide");
+  const path = useLocation();
+  console.log(path.pathname);
 
   const navitage = useNavigate();
   const api =
@@ -17,7 +19,7 @@ const SignUpPage = () => {
     e.preventDefault();
 
     sethiding("");
-    const result = await push(api, { email });
+    const result = await post(api, { email }, path.pathname);
     if (result?.data?.newuser?.isemailerified == false) {
       navitage("/verify");
     }

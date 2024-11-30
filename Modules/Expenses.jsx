@@ -1,73 +1,138 @@
-// import { useState } from "react";
-
-// const [hidingForm, setHidingForm] = useState(true);
-
-// const fileds = ["Date","Method","Amount",]
-const options = [
-  "Food & Dining",
-  "Transportation",
-  "Utilities",
-  "Rent/Mortgage",
-  "Groceries",
-  "Entertainment",
-  "Health & Fitness",
-  "Education",
-  "Shopping",
-  "Insurance",
-  "Savings & Investment",
-  "Others",
-];
-
-const methods = ["credit card", "debit card", "upi", "cash", "loan"];
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import get from "../jsFunctions/get";
+import Shimmer from "../Shimmer";
+import push from "../jsFunctions/post";
 
 const Expenses = () => {
+  const [hidingForm, setHidingForm] = useState("hide");
+  const [shimmer, setShimmer] = useState(false);
+  const [options, setOptions] = useState();
+  const [methods, setMethods] = useState();
+  const [category, setCategory] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [payment, setPayment] = useState("");
+  const [description, setDescription] = useState("");
+
+  const path = useLocation();
+
+  const token = localStorage.getItem("userToken");
+  const ConfigAPI =
+    "https://rgstudentsmanagementbackend.onrender.com/api/v1/expenses/config";
+
+  const AddAPI =
+    "https://rgstudentsmanagementbackend.onrender.com/api/v1/expenses";
+
+  const values = {
+    category: category,
+    description: description,
+    amount: Number(amount),
+    paymentMethod: payment,
+  };
+
+  const handleConfig = async () => {
+    setShimmer(true);
+    const result = await get(ConfigAPI, token);
+    if (result) {
+      setShimmer(false);
+      setHidingForm("");
+      console.log(result, "in result");
+      setOptions(result?.categories);
+      setMethods(result?.paymentMethods);
+    }
+  };
+
+  const handleAddExpense = async (e) => {
+    e.preventDefault();
+    const result = await push(AddAPI, values, path.pathname, token);
+    if (result) {
+      setHidingForm("hide");
+      console.log(result);
+    }
+  };
+
   return (
     <>
-      <form className="Main-content">
-        <div>
-          <label>Date : </label>
-          <input type="date" />
+      {shimmer ? (
+        <Shimmer />
+      ) : (
+        <div className={hidingForm}>
+          <form className="Main-content" onSubmit={handleAddExpense}>
+            <div>
+              <label>Date : </label>
+              <input type="date" />
+            </div>
+            <div>
+              <label>Category : </label>
+              <input
+                list="Used-For"
+                required
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
+              />
+              <datalist id="Used-For">
+                {hidingForm == "hide"
+                  ? null
+                  : options.map((option, index) => {
+                      return <option key={index} value={option} />;
+                    })}
+              </datalist>
+            </div>
+            <div>
+              <label>Amount : </label>
+              <input
+                type="number"
+                required
+                onChange={(e) => {
+                  setAmount(e.target.value);
+                }}
+              />
+            </div>
+            <div>
+              <label>Payment Method : </label>
+              <select
+                defaultValue=""
+                id="Payment-Method"
+                required
+                onChange={(e) => {
+                  setPayment(e.target.value);
+                }}
+              >
+                <option value="" disabled hidden>
+                  Select an Option
+                </option>
+                {hidingForm == "hide"
+                  ? null
+                  : methods.map((method, index) => {
+                      return (
+                        <option key={index} value={method}>
+                          {method}
+                        </option>
+                      );
+                    })}
+              </select>
+            </div>
+            <div>
+              <label>Description : </label>
+              <textarea
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
+              />
+            </div>
+            <div>
+              <button>ADD</button>
+            </div>
+          </form>
         </div>
-        <div>
-          <label>Used For : </label>
-          <input list="Used-For" />
-          <datalist id="Used-For">
-            {options.map((option) => {
-              return <option value={option} />;
-            })}
-          </datalist>
-        </div>
-        <div>
-          <label>Amount : </label>
-          <input type="number" />
-        </div>
-        <div>
-          <label>Payment Method : </label>
-          <select id="Payment-Method" name="Payment">
-            {methods.map((method) => {
-              return <option value={method}>{method}</option>;
-            })}
-          </select>
-        </div>
-        <div>
-          <label>Description : </label>
-          <textarea />
-        </div>
-        <div>
-          <button
-          // onClick={() => {
-          //   setHidingForm(true);
-          // }}
-          >
-            Submit
-          </button>
-        </div>
-      </form>
+      )}
+
       <div>
         <button
-        // onClick={() => {
-        //   setHidingForm(false);
-        // }}
+          onClick={() => {
+            handleConfig();
+          }}
         >
           Add Expenses
         </button>

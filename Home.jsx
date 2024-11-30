@@ -3,9 +3,6 @@ import MySidebar from "./Reuseables/MySidebar";
 import Expenses from "./Modules/Expenses";
 
 const Home = () => {
-  const userToken = localStorage.getItem("userToken");
-  console.log(userToken);
-
   return (
     <>
       <div className="home-grid">
