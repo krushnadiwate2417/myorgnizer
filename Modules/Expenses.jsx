@@ -2,7 +2,16 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import get from "../jsFunctions/get";
 import Shimmer from "../Shimmer";
-import push from "../jsFunctions/post";
+import post from "../jsFunctions/post";
+import Table from "../Reuseables/Table";
+
+const getToday = () => {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
+  const dd = String(today.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+};
 
 const Expenses = () => {
   const [hidingForm, setHidingForm] = useState("hide");
@@ -13,14 +22,22 @@ const Expenses = () => {
   const [amount, setAmount] = useState(0);
   const [payment, setPayment] = useState("");
   const [description, setDescription] = useState("");
+  const [showTable, setShowTable] = useState("hide");
+  const [expenseData, setExpenseData] = useState([]);
+  const [today, setToday] = useState(getToday());
+  console.log(today);
 
   const path = useLocation();
 
   const token = localStorage.getItem("userToken");
+
   const ConfigAPI =
     "https://rgstudentsmanagementbackend.onrender.com/api/v1/expenses/config";
 
   const AddAPI =
+    "https://rgstudentsmanagementbackend.onrender.com/api/v1/expenses";
+
+  const TableAPI =
     "https://rgstudentsmanagementbackend.onrender.com/api/v1/expenses";
 
   const values = {
@@ -35,6 +52,7 @@ const Expenses = () => {
     const result = await get(ConfigAPI, token);
     if (result) {
       setShimmer(false);
+
       setHidingForm("");
       console.log(result, "in result");
       setOptions(result?.categories);
@@ -44,10 +62,21 @@ const Expenses = () => {
 
   const handleAddExpense = async (e) => {
     e.preventDefault();
-    const result = await push(AddAPI, values, path.pathname, token);
+    const result = await post(AddAPI, values, path.pathname, token);
     if (result) {
       setHidingForm("hide");
       console.log(result);
+    }
+  };
+
+  const handleShowExpenses = async () => {
+    setShimmer(true);
+    const result = await get(TableAPI, token);
+    if (result) {
+      console.log(result);
+      setShimmer(false);
+      setExpenseData(result);
+      setShowTable("");
     }
   };
 
@@ -60,7 +89,13 @@ const Expenses = () => {
           <form className="Main-content" onSubmit={handleAddExpense}>
             <div>
               <label>Date : </label>
-              <input type="date" />
+              <input
+                type="date"
+                value={today}
+                onChange={(e) => {
+                  setToday(e.target.value);
+                }}
+              />
             </div>
             <div>
               <label>Category : </label>
@@ -136,6 +171,10 @@ const Expenses = () => {
         >
           Add Expenses
         </button>
+        <button onClick={handleShowExpenses}>Show Expenses</button>
+      </div>
+      <div className={showTable}>
+        <Table expenseData={expenseData} />
       </div>
     </>
   );

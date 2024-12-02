@@ -17,7 +17,7 @@ const Otp = () => {
   const handleOtp = async () => {
     const result = await post(api, val);
     if (result.message === "OTP verified successfully!!") {
-      navigate("/home");
+      navigate("/login");
     }
     // try {
     //   const response = await fetch(
