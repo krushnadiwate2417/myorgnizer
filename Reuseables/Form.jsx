@@ -6,7 +6,7 @@ const Form = ({ action, handleSubmit, setEmail, email }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form-signup-login">
         <div>
           <label>Email Id</label>
         </div>

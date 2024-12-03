@@ -17,6 +17,7 @@ const Login = () => {
     const result = await post(api, { email });
     if (result?.msg == "success" && result?.isemailerified == true) {
       localStorage.setItem("userToken", result.token);
+      sessionStorage.setItem("userToken", result.token);
       console.log("added");
       navigate("/home");
       console.log(result);
@@ -62,7 +63,7 @@ const Login = () => {
       <div className={hidden}>
         <Shimmer />
       </div>
-      <div>
+      <div className="Login-flex-c">
         <Form
           email={email}
           setEmail={setEmail}

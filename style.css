@@ -7,16 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.SignUp-gric-c {
-  display: grid;
-  width: 100%;
-  grid-template-rows: 1fr 1fr 1fr;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
+  height: 80vh;
 }
 
 .signup-input {
@@ -104,6 +95,7 @@ header {
   justify-content: space-between;
   align-items: center;
   border: 1px solid black;
+  padding: 20px 10px 20px 10px;
 }
 
 .header-list-flex {
@@ -112,6 +104,46 @@ header {
   margin-right: 20px;
   justify-content: center;
   align-items: center;
+}
+
+.btns-div {
+  list-style: none;
+  display: flex;
+  gap: 0px;
+  border: 2px solid;
+  border-radius: 50px;
+  background-color: black;
+}
+
+.header-btn {
+  border: none;
+  padding: 10px 20px 10px 20px;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+.signup-btn {
+  background-color: white;
+  color: black;
+  transition: 0.1s ease linear;
+}
+
+.afterclick-loginClick-signup-btn {
+  background-color: black;
+  color: white;
+  transition: 0.1s ease linear;
+}
+
+.login-btn {
+  background-color: black;
+  color: white;
+  transition: 0.1s ease linear;
+}
+
+.afterclick-login-btn {
+  background-color: white;
+  color: black;
+  transition: 0.1s ease linear;
 }
 
 .header-list-flex > li {
@@ -240,9 +272,53 @@ table {
 
 td {
   border: 1px solid black;
-  padding: 10px;
+  padding: 5px 10px 5px 10px;
 }
 
 th {
-  padding: 10px;
+  padding: 5px 10px 5px 10px;
+}
+
+.form-signup-login {
+  display: grid;
+  width: 100%;
+  grid-template-rows: 1fr 1fr 1fr;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.form-signup-login > div > label {
+  font-size: x-large;
+  letter-spacing: 1px;
+}
+
+.form-signup-login > div > button {
+  padding: 20px 60px 20px 60px;
+  border: 1px solid;
+  border-radius: 30px;
+  background-color: white;
+  font-size: large;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+.form-signup-login > div > button:hover {
+  background-color: black;
+  color: white;
+  transition: 0.2s ease linear;
+}
+
+.form-signup-login > div > input {
+  width: 230px;
+  height: 50px;
+  text-align: center;
+}
+
+.Login-flex-c {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
 }

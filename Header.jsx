@@ -1,8 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const Header = () => {
   const [width, setWidth] = useState(0);
+  const [signUpBtn, setSignUpBtn] = useState("signup-btn");
+  const [loginBtn, setLoginBtn] = useState("login-btn");
+  const path = useLocation();
+  useEffect(() => {
+    if (path.pathname == "/") {
+      setSignUpBtn("signup-btn");
+      setLoginBtn("login-btn");
+    } else if (path.pathname == "/login") {
+      setSignUpBtn("afterclick-loginClick-signup-btn");
+      setLoginBtn("afterclick-login-btn");
+    }
+  }, []);
+
   // if (width > 0) {
   //   window.addEventListener("click", function () {
   //     setWidth(0);
@@ -15,19 +28,35 @@ const Header = () => {
           <h1>LOGO</h1>
         </div>
         <div className="header-list-flex">
-          {/* <li>
-            <Link to={"/home"}>Home</Link>
-          </li> */}
-          <li>
-            <Link to={"/"}>
-              <button> SignUp </button>
-            </Link>
-          </li>
-          <li>
-            <Link to={"/login"}>
-              <button>Log In</button>
-            </Link>
-          </li>
+          <div className="btns-div">
+            <li>
+              <Link to={"/"}>
+                <button
+                  className={`${signUpBtn} header-btn`}
+                  onClick={() => {
+                    setSignUpBtn("signup-btn");
+                    setLoginBtn("login-btn");
+                  }}
+                >
+                  {" "}
+                  SignUp{" "}
+                </button>
+              </Link>
+            </li>
+            <li>
+              <Link to={"/login"}>
+                <button
+                  className={`${loginBtn} header-btn`}
+                  onClick={() => {
+                    setSignUpBtn("afterclick-loginClick-signup-btn");
+                    setLoginBtn("afterclick-login-btn");
+                  }}
+                >
+                  Log In
+                </button>
+              </Link>
+            </li>
+          </div>
           <li>
             <img
               onClick={() => {
