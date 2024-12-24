@@ -15,14 +15,14 @@ const Login = () => {
     e.preventDefault();
     setHidden("");
     const result = await post(api, { email });
-    if (result?.msg == "success" && result?.isemailerified == true) {
+    if (result?.message == "success" && result?.isemailerified == true) {
       localStorage.setItem("userToken", result.token);
       sessionStorage.setItem("userToken", result.token);
       console.log("added");
       navigate("/home");
       console.log(result);
     }
-    if (result?.msg == "success" && result?.isemailerified == false) {
+    if (result?.msg == "success" && !result?.isemailerified) {
       navigate("/verify");
     }
     // try {

@@ -35,6 +35,7 @@ const Expenses = () => {
   const [description, setDescription] = useState("");
   const [showTable, setShowTable] = useState("hide");
   const [expenseData, setExpenseData] = useState([]);
+  const [filterData, setFilterData] = useState([]);
   const [today, setToday] = useState(getToday());
   const [dynamicAdding, setDynamicAdding] = useState(0);
   console.log(today);
@@ -68,20 +69,24 @@ const Expenses = () => {
       setHidingForm("hide");
       setShimmer(false);
       console.log(result);
-      setDynamicAdding((curr) => curr + 1);
+      // setDynamicAdding((curr) => curr + 1);
+      handleShowExpenses();
     }
   };
 
-  useEffect(() => {
-    handleShowExpenses();
-  }, [dynamicAdding]);
+  // useEffect(() => {
+  //   handleShowExpenses();
+  // }, [dynamicAdding]);
 
   const handleShowExpenses = async () => {
     const result = await get(TableAPI, token);
+
     if (result) {
       console.log(result);
       setShimmer(false);
-      setExpenseData(result);
+      setExpenseData(result?.data?.expenses);
+      setFilterData(result?.data?.expenses);
+      handleConfig();
       // setShowTable("");
     }
   };
@@ -189,7 +194,12 @@ const Expenses = () => {
         </button>
       </div>
       <div className={showTable}>
-        <Table expenseData={expenseData} />
+        <Table
+          expenseData={expenseData}
+          setExpenseData={setExpenseData}
+          filterData={filterData}
+          setFilterData={setFilterData}
+        />
       </div>
     </>
   );
