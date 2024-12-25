@@ -25,37 +25,6 @@ const Login = () => {
     if (result?.msg == "success" && !result?.isemailerified) {
       navigate("/verify");
     }
-    // try {
-    //   const response = await fetch(
-    //     "https://rgstudentsmanagementbackend.onrender.com/api/v1/organizemeusers/login",
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({ email }),
-    //     }
-    //   );
-
-    //   if (!response) {
-    //     throw new Error("Something went wrong in Fetching");
-    //   }
-
-    //   const result = await response.json();
-    // if (result?.msg == "success" && result?.isemailerified == true) {
-    //   localStorage.setItem("userToken", result.token);
-    //   console.log("added");
-    //   navigate("/home");
-    //   console.log(result);
-    // }
-
-    // if (result?.msg == "success" && result?.isemailerified == false) {
-    //   navigate("/verify");
-    // }
-    //   setHidden("hide");
-    // } catch (error) {
-    //   console.log("Error in Login", error);
-    // }
   };
 
   return (
@@ -63,13 +32,25 @@ const Login = () => {
       <div className={hidden}>
         <Shimmer />
       </div>
-      <div className="Login-flex-c">
-        <Form
-          email={email}
-          setEmail={setEmail}
-          action={"Log In"}
-          handleSubmit={handleSubmit}
-        />
+      <div className="login-form-grid-c">
+        <div className="login-left-div">
+          <button
+            onClick={() => {
+              navigate("/");
+            }}
+            className="signup-btn-grid"
+          >
+            Sign Up
+          </button>
+        </div>
+        <div className="Login-flex-c">
+          <Form
+            email={email}
+            setEmail={setEmail}
+            action={"Log In"}
+            handleSubmit={handleSubmit}
+          />
+        </div>
       </div>
     </>
   );

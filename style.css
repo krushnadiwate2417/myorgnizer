@@ -321,4 +321,52 @@ th {
   justify-content: center;
   align-items: center;
   height: 80vh;
+  border: 1px solid black;
+  border-radius: 15px;
+}
+
+.login-form-grid-c {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 70px 150px 0px 150px;
+  gap: 10px;
+}
+
+.login-left-div {
+  border: 1px solid black;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup-btn-grid {
+  padding: 20px;
+  border: none;
+}
+
+.login-btn-grid {
+  padding: 20px;
+  border: none;
+}
+
+.SignUp-flex-c {
+  border: 1px solid black;
+  border-radius: 15px;
+}
+
+.signup-grid-c {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 70px 150px 0px 150px;
+
+  gap: 10px;
+}
+
+.signup-grid-right {
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
 }

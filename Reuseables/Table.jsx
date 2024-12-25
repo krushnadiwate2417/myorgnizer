@@ -32,8 +32,6 @@ const Table = ({
   const catSet = [...new Set(cateogry)];
   const paySet = [...new Set(payment)];
 
-  console.log("PAGE", pageData);
-
   return (
     <>
       <button

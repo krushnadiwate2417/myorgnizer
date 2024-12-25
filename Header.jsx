@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import logo from "./img/logo.jpeg";
 
 const Header = () => {
   const [width, setWidth] = useState(0);
@@ -14,18 +15,13 @@ const Header = () => {
       setSignUpBtn("afterclick-loginClick-signup-btn");
       setLoginBtn("afterclick-login-btn");
     }
-  }, []);
+  }, [path]);
 
-  // if (width > 0) {
-  //   window.addEventListener("click", function () {
-  //     setWidth(0);
-  //   });
-  // }
   return (
     <>
       <header>
         <div>
-          <h1>LOGO</h1>
+          <img src={logo} width={80} />
         </div>
         <div className="header-list-flex">
           <div className="btns-div">

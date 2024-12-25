@@ -28,34 +28,6 @@ const SignUpPage = () => {
       setHiding2("");
       setErrText("Account already Signed Up, Try ");
     }
-
-    // try {
-    //   const response = await fetch(
-    //     "https://rgstudentsmanagementbackend.onrender.com/api/v1/organizemeusers/organizemeuser",
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         // "Authorization": "bearar "
-    //       },
-    //       body: JSON.stringify({ email }),
-    //     }
-    //   );
-    //   if (!response.ok) {
-    //     throw new Error("Something went wrong");
-    //   }
-    //   const result = await response.json();
-    //   console.log(result);
-    //   if (result?.data?.newuser?.isemailerified === false) {
-    //     navitage("/verify");
-    //   }
-    // } catch (error) {
-    //   setLoading(false);
-    //   sethiding("hide");
-    //   setHiding2("");
-    //   console.error(error);
-    //   setErrText("Account already Signed Up, Try ");
-    // }
   };
 
   return (
@@ -63,17 +35,29 @@ const SignUpPage = () => {
       <div className={hiding}>
         <Shimmer />
       </div>
-      <div className="SignUp-flex-c">
-        <Form
-          action={"Sign Up"}
-          handleSubmit={handleSubmit}
-          setEmail={setEmail}
-          email={email}
-        />
-        <p className={`signup-p ${hiding2}`}>
-          {errText}
-          <Link to={"/login"}>Login</Link>
-        </p>
+      <div className="signup-grid-c">
+        <div className="SignUp-flex-c">
+          <Form
+            action={"Sign Up"}
+            handleSubmit={handleSubmit}
+            setEmail={setEmail}
+            email={email}
+          />
+          <p className={`signup-p ${hiding2}`}>
+            {errText}
+            <Link to={"/login"}>Login</Link>
+          </p>
+        </div>
+        <div className="signup-grid-right">
+          <button
+            onClick={() => {
+              navitage("/login");
+            }}
+            className="login-btn-grid"
+          >
+            Log in
+          </button>
+        </div>
       </div>
     </>
   );
