@@ -1,13 +1,28 @@
 import { useState } from "react";
 import Select from "./Select";
-const Table = ({ expenseData, setExpenseData, filterData, setFilterData }) => {
+import TableData from "./TableData";
+const Table = ({
+  expenseData,
+  setExpenseData,
+  filterData,
+  setFilterData,
+  totalRecords,
+  pageData,
+  setPageData,
+}) => {
   if (expenseData.length == 0) return;
 
   const [amountSort, setAmountSort] = useState("Sort by Min Amount");
   const [dateSort, setDateSort] = useState("Sort by Recent Date");
   const [filteringVal, setFilteringVal] = useState(false);
+  const [pagingVal, setPagingVal] = useState(false);
   const cateogry = [];
   const payment = [];
+  const records = [];
+
+  for (let i = 1; i <= Math.round(totalRecords / 2); i++) {
+    records.push(i);
+  }
 
   expenseData.map((val) => {
     cateogry.push(val.category);
@@ -17,27 +32,7 @@ const Table = ({ expenseData, setExpenseData, filterData, setFilterData }) => {
   const catSet = [...new Set(cateogry)];
   const paySet = [...new Set(payment)];
 
-  const handleDate = (date) => {
-    const d = new Date(date);
-    const dd = d.getDate();
-    const mm = d.getMonth();
-    const yyyy = d.getFullYear();
-    return `${dd}-${mm}-${yyyy}`;
-  };
-
-  const handleTime = (date) => {
-    const t = new Date(date);
-    const hr = t.getHours();
-    const mt = t.getMinutes();
-    const stat = hr / 12 <= 1 ? "am" : "pm";
-
-    return `${new String(hr % 12).padStart(2, 0)} : ${new String(mt).padStart(
-      2,
-      0
-    )} ${stat}`;
-  };
-
-  console.log("filter", filterData);
+  console.log("PAGE", pageData);
 
   return (
     <>
@@ -48,11 +43,23 @@ const Table = ({ expenseData, setExpenseData, filterData, setFilterData }) => {
               ? "Sort by Max Amount"
               : "Sort by Min Amount"
           );
-          setExpenseData(
-            amountSort == "Sort by Min Amount"
-              ? expenseData.sort((a, b) => a.amount - b.amount) // ascending order min -> max
-              : expenseData.sort((a, b) => b.amount - a.amount) // decending order max -> min
-          );
+          pagingVal
+            ? setPageData(
+                amountSort == "Sort by Min Amount"
+                  ? pageData.sort((a, b) => a.amount - b.amount) // ascending order min -> max
+                  : pageData.sort((a, b) => b.amount - a.amount) // decending order max -> min
+              )
+            : filteringVal
+            ? setFilterData(
+                amountSort == "Sort by Min Amount"
+                  ? filterData.sort((a, b) => a.amount - b.amount) // ascending order min -> max
+                  : filterData.sort((a, b) => b.amount - a.amount) // decending order max -> min
+              )
+            : setExpenseData(
+                amountSort == "Sort by Min Amount"
+                  ? expenseData.sort((a, b) => a.amount - b.amount) // ascending order min -> max
+                  : expenseData.sort((a, b) => b.amount - a.amount) // decending order max -> min
+              );
         }}
       >
         {amountSort}
@@ -64,15 +71,35 @@ const Table = ({ expenseData, setExpenseData, filterData, setFilterData }) => {
               ? "Sort by Old Date"
               : "Sort by Recent Date"
           );
-          setExpenseData(
-            dateSort == "Sort by Recent Date"
-              ? expenseData.sort(
-                  (a, b) => new Date(b.date) - new Date(a.date) // recent -> oldest
-                )
-              : expenseData.sort(
-                  (a, b) => new Date(a.date) - new Date(b.date) // oldest -> recent
-                )
-          );
+          pagingVal
+            ? setPageData(
+                dateSort == "Sort by Recent Date"
+                  ? pageData.sort(
+                      (a, b) => new Date(b.date) - new Date(a.date) // recent -> oldest
+                    )
+                  : pageData.sort(
+                      (a, b) => new Date(a.date) - new Date(b.date) // oldest -> recent
+                    )
+              )
+            : filteringVal
+            ? setFilterData(
+                dateSort == "Sort by Recent Date"
+                  ? filterData.sort(
+                      (a, b) => new Date(b.date) - new Date(a.date) // recent -> oldest
+                    )
+                  : filterData.sort(
+                      (a, b) => new Date(a.date) - new Date(b.date) // oldest -> recent
+                    )
+              )
+            : setExpenseData(
+                dateSort == "Sort by Recent Date"
+                  ? expenseData.sort(
+                      (a, b) => new Date(b.date) - new Date(a.date) // recent -> oldest
+                    )
+                  : expenseData.sort(
+                      (a, b) => new Date(a.date) - new Date(b.date) // oldest -> recent
+                    )
+              );
         }}
       >
         {dateSort}
@@ -106,54 +133,34 @@ const Table = ({ expenseData, setExpenseData, filterData, setFilterData }) => {
             <th>Amount</th>
           </tr>
         </thead>
-        {filteringVal
-          ? filterData.map((val, index) => {
-              return (
-                <tbody key={val._id}>
-                  <tr className="dataInTable">
-                    <td>{index + 1}</td>
-                    <td>{handleDate(val?.date)}</td>
-                    <td>{handleTime(val?.date)}</td>
-                    <td>{val?.category}</td>
-                    <td>{val?.paymentMethod}</td>
-                    <td>{val?.description}</td>
-                    <td>{val?.amount}/-</td>
-                  </tr>
-                </tbody>
-              );
-            })
-          : expenseData.map((val, index) => {
-              return (
-                <tbody key={val._id}>
-                  <tr className="dataInTable">
-                    <td>{index + 1}</td>
-                    <td>{handleDate(val?.date)}</td>
-                    <td>{handleTime(val?.date)}</td>
-                    <td>{val?.category}</td>
-                    <td>{val?.paymentMethod}</td>
-                    <td>{val?.description}</td>
-                    <td>{val?.amount}/-</td>
-                  </tr>
-                </tbody>
-              );
-            })}
-        <tfoot>
-          <td colSpan={7}>
-            Total :{" "}
-            {filteringVal
-              ? filterData
-                  .map((val) => {
-                    return Number(val?.amount);
-                  })
-                  .reduce((acc, curr) => acc + curr, 0)
-              : expenseData
-                  .map((val) => {
-                    return Number(val?.amount);
-                  })
-                  .reduce((acc, curr) => acc + curr, 0)}
-          </td>
-        </tfoot>
+        <TableData
+          data={pagingVal ? pageData : filteringVal ? filterData : expenseData}
+        />
       </table>
+      {records.map((val) => {
+        return (
+          <button
+            onClick={() => {
+              console.log(val);
+              setPageData(
+                val == 1
+                  ? expenseData.slice(val - 1, val + 1)
+                  : expenseData.slice(Number(val) * 2 - 2, Number(val) * 2)
+              );
+              setPagingVal(true);
+            }}
+          >
+            {val}
+          </button>
+        );
+      })}
+      <button
+        onClick={() => {
+          setPagingVal(false);
+        }}
+      >
+        Show Complete Table
+      </button>
     </>
   );
 };

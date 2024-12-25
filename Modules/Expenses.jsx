@@ -36,8 +36,10 @@ const Expenses = () => {
   const [showTable, setShowTable] = useState("hide");
   const [expenseData, setExpenseData] = useState([]);
   const [filterData, setFilterData] = useState([]);
+  const [pageData, setPageData] = useState([]);
   const [today, setToday] = useState(getToday());
   const [dynamicAdding, setDynamicAdding] = useState(0);
+  const [totalRecords, setTotalRecords] = useState(0);
   console.log(today);
 
   const path = useLocation();
@@ -82,10 +84,12 @@ const Expenses = () => {
     const result = await get(TableAPI, token);
 
     if (result) {
-      console.log(result);
+      console.log("SHow Expense", result);
       setShimmer(false);
+      setTotalRecords(result?.data.totalRecords);
       setExpenseData(result?.data?.expenses);
       setFilterData(result?.data?.expenses);
+      setPageData(result?.data?.expenses);
       handleConfig();
       // setShowTable("");
     }
@@ -199,6 +203,9 @@ const Expenses = () => {
           setExpenseData={setExpenseData}
           filterData={filterData}
           setFilterData={setFilterData}
+          totalRecords={totalRecords}
+          setPageData={setPageData}
+          pageData={pageData}
         />
       </div>
     </>
