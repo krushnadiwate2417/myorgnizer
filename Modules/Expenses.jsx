@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { useLocation } from "react-router-dom";
 import get from "../jsFunctions/get";
 import Shimmer from "../Shimmer";
 import post from "../jsFunctions/post";
 import Table from "../Reuseables/Table";
+import UserContext from "../Context/UserContext";
+import {toast,ToastContainer} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css";
 
 const getToday = () => {
   const today = new Date();
@@ -34,17 +37,18 @@ const Expenses = () => {
   const [payment, setPayment] = useState("");
   const [description, setDescription] = useState("");
   const [showTable, setShowTable] = useState("hide");
+  const [hidingAddExpenses,setHidingAddExpenses] = useState("")
   const [expenseData, setExpenseData] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [pageData, setPageData] = useState([]);
   const [today, setToday] = useState(getToday());
   const [dynamicAdding, setDynamicAdding] = useState(0);
   const [totalRecords, setTotalRecords] = useState(0);
-  console.log(today);
-
+  const {setExpenseDataGlobally} = useContext(UserContext); 
   const path = useLocation();
 
   const values = {
+    date : today,
     category: category,
     description: description,
     amount: Number(amount),
@@ -53,10 +57,12 @@ const Expenses = () => {
 
   const handleConfig = async () => {
     setShimmer(true);
+    setHidingAddExpenses("hide");
+    setHidingForm("form-div");
+    setShowTable("hide")
     const result = await get(ConfigAPI, token);
     if (result) {
       setShimmer(false);
-      setHidingForm("");
       console.log(result, "in result");
       setOptions(result?.categories);
       setMethods(result?.paymentMethods);
@@ -64,15 +70,24 @@ const Expenses = () => {
   };
 
   const handleAddExpense = async (e) => {
+    console.log(today)
     setShimmer(true);
+    setHidingAddExpenses("")
+    setHidingForm("hide")
     e.preventDefault();
     const result = await post(AddAPI, values, path.pathname, token);
     if (result) {
-      setHidingForm("hide");
       setShimmer(false);
+      toast.success("Expense Added Successfully",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      })
       console.log(result);
       // setDynamicAdding((curr) => curr + 1);
-      handleShowExpenses();
     }
   };
 
@@ -81,29 +96,32 @@ const Expenses = () => {
   // }, [dynamicAdding]);
 
   const handleShowExpenses = async () => {
+    setHidingForm('hide')
+    setHidingAddExpenses("")
     const result = await get(TableAPI, token);
-
     if (result) {
       console.log("SHow Expense", result);
       setShimmer(false);
       setTotalRecords(result?.data.totalRecords);
       setExpenseData(result?.data?.expenses);
+      setExpenseDataGlobally(result?.data?.expenses)
       setFilterData(result?.data?.expenses);
       setPageData(result?.data?.expenses);
-      handleConfig();
       // setShowTable("");
     }
   };
 
   return (
     <>
+    <ToastContainer/>
       {shimmer ? (
         <Shimmer />
       ) : (
-        <div className={hidingForm}>
-          <form className="Main-content" onSubmit={handleAddExpense}>
-            <div>
-              <label>Date : </label>
+        <div className="expense-grid-c ">
+          <div className={hidingForm}>
+          <form className="form-content" onSubmit={handleAddExpense}>
+            <div className="fields">
+              <label>Date</label>
               <input
                 type="date"
                 value={today}
@@ -112,8 +130,8 @@ const Expenses = () => {
                 }}
               />
             </div>
-            <div>
-              <label>Category : </label>
+            <div className="fields">
+              <label>Category</label>
               <input
                 list="Used-For"
                 required
@@ -129,8 +147,8 @@ const Expenses = () => {
                     })}
               </datalist>
             </div>
-            <div>
-              <label>Amount : </label>
+            <div className="fields">
+              <label>Amount</label>
               <input
                 type="number"
                 required
@@ -139,8 +157,8 @@ const Expenses = () => {
                 }}
               />
             </div>
-            <div>
-              <label>Payment Method : </label>
+            <div className="fields">
+              <label>Payment Method</label>
               <select
                 defaultValue=""
                 id="Payment-Method"
@@ -163,30 +181,29 @@ const Expenses = () => {
                     })}
               </select>
             </div>
-            <div>
-              <label>Description : </label>
+            <div className="fields">
+              <label>Description</label>
               <textarea
                 onChange={(e) => {
                   setDescription(e.target.value);
                 }}
               />
             </div>
-            <div>
+            <div className="add-btn-form">
               <button>ADD</button>
             </div>
           </form>
         </div>
-      )}
 
-      <div>
-        <button
+      <div className="home-btns">
+        <button className={` ${hidingAddExpenses} btns add-btn`}
           onClick={() => {
             handleConfig();
           }}
         >
           Add Expenses
         </button>
-        <button
+        <button className="btns show-btn"
           onClick={() => {
             setDynamicAdding((curr) => curr + 1);
             setShimmer(true);
@@ -208,6 +225,9 @@ const Expenses = () => {
           pageData={pageData}
         />
       </div>
+        </div>
+
+        )}
     </>
   );
 };

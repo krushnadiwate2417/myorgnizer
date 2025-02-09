@@ -22,7 +22,9 @@ const post = async (api, data, path, token) => {
     );
 
     if (!response.ok) {
+      console.log(response);
       throw new Error("Error in Fetchinggggg");
+      
     }
 
     const result = await response.json();

@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { useNavigate, useLocation } from "react-router";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import Form from "./Reuseables/Form";
 import post from "./jsFunctions/post";
+import UserContext from "./Context/UserContext";
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [errText, setErrText] = useState("");
@@ -35,18 +36,26 @@ const SignUpPage = () => {
       <div className={hiding}>
         <Shimmer />
       </div>
-      <div className="signup-grid-c">
+      <div className="signup-grid-c" >
         <div className="SignUp-flex-c">
+          <div className="signUp-heading">
+            <h1>New to My Organizer ?</h1>
+            <h2>Please Sign Up Here</h2>
+          </div>
+          <div>
           <Form
             action={"Sign Up"}
             handleSubmit={handleSubmit}
             setEmail={setEmail}
             email={email}
           />
-          <p className={`signup-p ${hiding2}`}>
-            {errText}
-            <Link to={"/login"}>Login</Link>
-          </p>
+          </div>
+          <div className="errP">
+            <h5 className={`signup-p ${hiding2}`}>
+              {errText}
+              <Link to={"/login"}>Login</Link>
+            </h5>
+          </div>
         </div>
         <div className="signup-grid-right">
           <button

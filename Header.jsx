@@ -23,7 +23,7 @@ const Header = () => {
         <div>
           <img src={logo} width={80} />
         </div>
-        <div className="header-list-flex">
+        {/* <div className="header-list-flex">
           <div className="btns-div">
             <li>
               <Link to={"/"}>
@@ -75,8 +75,12 @@ const Header = () => {
             >
               Close
             </button>
+          </div> */}
+        {/* </div> */}
+        <div>
+           <h1>Welcome To My Organizer</h1><br/>
+           <h3>Organize Your Expenses By Adding and Saving them.</h3>
           </div>
-        </div>
       </header>
     </>
   );

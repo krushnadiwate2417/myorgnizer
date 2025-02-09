@@ -2,11 +2,17 @@ import React, { useRef, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../Context/UserContext";
 import post from "../jsFunctions/post";
+import {toast,ToastContainer} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css";
+import Shimmer from "../Shimmer";
+
 const Otp = () => {
   const [values, setValues] = useState(["", "", "", "", ""]); // State for the input values
   const navigate = useNavigate();
   const inputs = useRef([]); // References for the input fields
   const { data } = useContext(UserContext);
+  const [shimmerStat, setShimmerStat] = useState(false);
+
   const email = data.email;
   const val = {
     email: email,
@@ -15,8 +21,20 @@ const Otp = () => {
   const api =
     "https://rgstudentsmanagementbackend.onrender.com/api/v1/organizemeusers/orguserverifyotp";
   const handleOtp = async () => {
+
     const result = await post(api, val);
+    if(result){
+      setShimmerStat(false)
+    }
     if (result.message === "OTP verified successfully!!") {
+      toast.success("Otp Verified Successfully",{
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      })
       navigate("/login");
     }
     // try {
@@ -68,8 +86,9 @@ const Otp = () => {
     }
   };
 
-  return (
+  return shimmerStat ? <Shimmer/> : (
     <>
+      <div className="otp-div-c">
       <div>
         {values.map((value, index) => (
           <input
@@ -81,24 +100,26 @@ const Otp = () => {
             onKeyDown={(e) => handleKeyDown(e, index)}
             ref={(el) => (inputs.current[index] = el)} // Assign refs to inputs
             style={{
-              width: "30px",
-              height: "30px",
+              width: "60px",
+              height: "60px",
               textAlign: "center",
               marginRight: "5px",
-              border: "5px solid",
-              borderColor: "black",
+              border: "2px solid",
+              borderColor: "orangered",
             }}
           />
         ))}
       </div>
-      <div>
+      <div className="verify-otp-btn">
         <button
           onClick={() => {
+            setShimmerStat(true)
             handleOtp();
           }}
         >
           Verify Otp
         </button>
+      </div>
       </div>
     </>
   );

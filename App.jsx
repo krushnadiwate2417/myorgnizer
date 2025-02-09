@@ -14,31 +14,24 @@ import {
 import UserContext from "./Context/UserContext";
 import Expenses from "./Modules/Expenses";
 import WelcomePage from "./Modules/WelcomePage";
+import MyChart from "./Modules/Vizualize";
 
 const App = () => {
   const [Useremail, setUserEmail] = useState("");
+  const [expenseDataGlobally,setExpenseDataGlobally] = useState();
   const path = useLocation();
   const data = { email: Useremail };
 
   return (
     <>
-      <UserContext.Provider value={{ data, setUserEmail }}>
-        {path.pathname == "/" ||
-        path.pathname == "/login" ||
-        path.pathname == "verify" ? (
+      <UserContext.Provider value={{ data, setUserEmail, setExpenseDataGlobally, expenseDataGlobally }}>
+
           <div>
-            <main>
+            <main className="main-outlet">
               <Outlet />
             </main>
           </div>
-        ) : (
-          <div>
-            <Header />
-            <main>
-              <Outlet />
-            </main>
-          </div>
-        )}
+        
       </UserContext.Provider>
     </>
   );
@@ -64,17 +57,15 @@ const appRouter = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
-        children: [
-          {
-            path: "/home",
-            element: <WelcomePage />,
-          },
-          {
-            path: "expenses",
-            element: <Expenses />,
-          },
-        ],
       },
+      {
+        path: "/expenses",
+        element: <Expenses />,
+      },
+      {
+        path : "/stats",
+        element: <MyChart/>
+      }
     ],
   },
 ]);

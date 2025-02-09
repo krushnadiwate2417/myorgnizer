@@ -18,16 +18,9 @@ const Home = () => {
 
   return (
     <>
-      <div className="home-grid">
-        <div className="Home-sidebar">
-          <MySidebar>
-            <Link to={"/home/expenses"}>My Expenses</Link>
-          </MySidebar>
-        </div>
         <div className="home-main-content">
-          <Outlet />
+          <Expenses />
         </div>
-      </div>
     </>
   );
 };
