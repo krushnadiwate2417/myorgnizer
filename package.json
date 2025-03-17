@@ -2,7 +2,6 @@
   "name": "expense-tracker-project",
   "version": "1.0.0",
   "description": "TO ORGANIZE MY EXPENSES",
-  "main": "App.js",
   "scripts": {
     "test": "jest",
     "start": "parcel index.html",
@@ -15,8 +14,11 @@
     "process": "^0.11.10"
   },
   "dependencies": {
+    "chart.js": "^4.4.7",
     "react": "^18.3.1",
+    "react-chartjs-2": "^5.3.0",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.28.0"
+    "react-router-dom": "^6.28.0",
+    "react-toastify": "^11.0.3"
   }
 }

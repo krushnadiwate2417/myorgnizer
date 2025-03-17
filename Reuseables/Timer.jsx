@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react";
-import Otp from "./inputOtp";
+import Otp from "./Input-Otp";
 
 const Timer = ({ setDisable, start, setStart }) => {
-  const [seconds, setSeconds] = useState(5);
+  const [seconds, setSeconds] = useState(60);
   const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
     if (!start) return;
-    setSeconds(5);
-    setIsRunning(true);
+    setSeconds(60);
     const interval = setInterval(() => {
       setSeconds((currSec) => {
         if (currSec <= 1) {
           clearInterval(interval);
-          setIsRunning(false);
+          setDisable(false);
           return 0;
         } else {
           return currSec - 1;
@@ -23,17 +22,17 @@ const Timer = ({ setDisable, start, setStart }) => {
     return () => clearInterval(interval);
   }, [start]);
 
-  useEffect(() => {
-    if (!isRunning) {
-      setDisable(false);
-      setStart(false);
-    }
-  }, [isRunning, setDisable]);
+  // useEffect(() => {
+  //   if (!isRunning) {
+  //     setDisable(false);
+  //     setStart(false);
+  //   }
+  // }, [isRunning, setDisable]);
 
   return (
     <>
       <Otp />
-      <p>Timer : {seconds}</p>
+      <p>Timer : {seconds} seconds remaining</p>
     </>
   );
 };
