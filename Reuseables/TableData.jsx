@@ -18,7 +18,7 @@ const handleDate = (date) => {
 //   )} ${stat}`;
 // };
 
-export default TableData = ({ data }) => {
+const TableData = ({ data }) => {
   return (
     <>
       {data.map((val, index) => {
@@ -51,3 +51,5 @@ export default TableData = ({ data }) => {
     </>
   );
 };
+
+export default TableData;
