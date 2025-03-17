@@ -19,7 +19,6 @@ import MyChart from "./Modules/Vizualize";
 const App = () => {
   const [Useremail, setUserEmail] = useState("");
   const [expenseDataGlobally,setExpenseDataGlobally] = useState();
-  const path = useLocation();
   const data = { email: Useremail };
 
   return (
@@ -28,7 +27,7 @@ const App = () => {
 
           <div>
             <main className="main-outlet">
-              <Outlet />
+            <RouterProvider router={appRouter} />
             </main>
           </div>
         
@@ -38,10 +37,7 @@ const App = () => {
 };
 
 const appRouter = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
+
       {
         path: "/",
         element: <SignUpPage />,
@@ -66,10 +62,8 @@ const appRouter = createBrowserRouter([
         path : "/stats",
         element: <MyChart/>
       }
-    ],
-  },
-]);
+   ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(<RouterProvider router={appRouter} />);
+root.render(<App/>);
