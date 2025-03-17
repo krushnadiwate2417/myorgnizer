@@ -1,4 +1,4 @@
-export default Select = ({
+const Select = ({
   label,
   setFilteringVal,
   mappingArr,
@@ -39,3 +39,5 @@ export default Select = ({
     </>
   );
 };
+
+export default Select;
