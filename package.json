@@ -2,7 +2,6 @@
   "name": "expense-tracker-project",
   "version": "1.0.0",
   "description": "TO ORGANIZE MY EXPENSES",
-  "main": "App.js",
   "scripts": {
     "test": "jest",
     "start": "parcel index.html",

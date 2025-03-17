@@ -1,5 +1,5 @@
 const post = async (api, data, path, token) => {
-  console.log(path);
+ 
   try {
     const response = await fetch(
       api,
@@ -22,16 +22,16 @@ const post = async (api, data, path, token) => {
     );
 
     if (!response.ok) {
-      console.log(response);
+
       throw new Error("Error in Fetchinggggg");
       
     }
 
     const result = await response.json();
-    console.log(result);
+
     return result;
   } catch (error) {
-    console.log("Error in Catch", error);
+
     return false;
   }
 };

@@ -63,14 +63,14 @@ const Expenses = () => {
     const result = await get(ConfigAPI, token);
     if (result) {
       setShimmer(false);
-      console.log(result, "in result");
+
       setOptions(result?.categories);
       setMethods(result?.paymentMethods);
     }
   };
 
   const handleAddExpense = async (e) => {
-    console.log(today)
+
     setShimmer(true);
     setHidingAddExpenses("")
     setHidingForm("hide")
@@ -86,7 +86,7 @@ const Expenses = () => {
         pauseOnHover: true,
         draggable: true,
       })
-      console.log(result);
+
       // setDynamicAdding((curr) => curr + 1);
     }
   };
@@ -100,7 +100,7 @@ const Expenses = () => {
     setHidingAddExpenses("")
     const result = await get(TableAPI, token);
     if (result) {
-      console.log("SHow Expense", result);
+
       setShimmer(false);
       setTotalRecords(result?.data.totalRecords);
       setExpenseData(result?.data?.expenses);

@@ -1,5 +1,5 @@
 import { useState,useContext } from "react";
-import { useNavigate, useLocation } from "react-router";
+import { useNavigate, useLocation } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import Form from "./Reuseables/Form";
@@ -11,7 +11,6 @@ const SignUpPage = () => {
   const [hiding, sethiding] = useState("hide");
   const [hiding2, setHiding2] = useState("hide");
   const path = useLocation();
-  console.log(path.pathname);
 
   const navitage = useNavigate();
   const api =

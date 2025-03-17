@@ -38,12 +38,9 @@ const Verify = () => {
     //     throw new Error("Error in Fetching");
     //   }
     //   const result = await response.json();
-    //   console.log(result);
     // } catch (error) {
-    //   console.log("Error in Verify" + error);
     // }
   };
-  console.log(disable);
   return shimmerStat ? <Shimmer/> : (
     <>
       <div className="verify-flex">
@@ -63,7 +60,6 @@ const Verify = () => {
                 setBtnMsg("Resend Otp")
                 setOtpSentMsg(`OTP has been sent to ${data.email}. Please Verify Your Email by entering Valid OTP.`)
                 await handleVerify();
-                console.log(data.email);
               }}
             >
               {btnMsg}

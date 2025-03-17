@@ -58,7 +58,7 @@ const Otp = () => {
     //     navigate("/home");
     //   }
     // } catch (error) {
-    //   console.log("Error in OTP VERIFICATION " + error);
+
     // }
   };
 

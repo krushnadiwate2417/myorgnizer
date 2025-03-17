@@ -1,5 +1,4 @@
 const get = async (api, token) => {
-  console.log("in get");
   try {
     const response = await fetch(api, {
       method: "GET",

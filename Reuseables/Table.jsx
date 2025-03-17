@@ -157,7 +157,7 @@ const Table = ({
         return (
           <button
             onClick={() => {
-              console.log(val);
+
               setPageData(
                 val == 1
                   ? expenseData.slice(val - 1, val + 4)

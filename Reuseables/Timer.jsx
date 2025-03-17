@@ -6,7 +6,6 @@ const Timer = ({ setDisable, start, setStart }) => {
   const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
-    console.log(start);
     if (!start) return;
     setSeconds(60);
     const interval = setInterval(() => {

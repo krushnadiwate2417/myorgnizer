@@ -38,14 +38,14 @@ ChartJS.register(
 const MyChart = ()=>{
 
     const {expenseDataGlobally} = useContext(UserContext);
-    console.log(expenseDataGlobally);
+
     const navigate = useNavigate()
 
     if(expenseDataGlobally.length == 0) return;
 
     const dataa = {}
     const amountt = [0,0,0,0,0,0,0,0,0,0,0,0]
-    console.log(expenseDataGlobally)
+
     expenseDataGlobally.map((val,index)=>{
         const month = new Date(val.date).getMonth()
         if(dataa[month]>=0){
@@ -54,14 +54,13 @@ const MyChart = ()=>{
             dataa[month] = val.amount
         }
     })
-    console.log(dataa)
+
     
     const months = Object.keys(dataa)
     for(let i = 0; i<months.length;i++){
         amountt[months[i]] = dataa[months[i]]
     }
 
-    console.log(amountt)
 
     const data = {
         labels: ["January","February","March","April","May","June","July","August","September","October","November","December"], // X-axis labels
