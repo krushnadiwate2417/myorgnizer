@@ -762,3 +762,191 @@ display: flex;
   color: orangered;
   border-color: orangered;
 }
+
+
+@media screen and (max-width: 768px) {
+  /* General Layout Adjustments */
+  .main-outlet,
+  .flip-main-outlet {
+    height: auto;
+    min-height: 100vh;
+    background-position: center;
+  }
+
+  /* Header Adjustments */
+  header {
+    flex-direction: column;
+    padding: 10px 5px;
+  }
+
+  .header-list-flex {
+    margin-right: 0;
+    margin-top: 10px;
+    gap: 5px;
+  }
+
+  .header-btn {
+    padding: 8px 15px;
+  }
+
+  /* Home Grid Layout */
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .Home-sidebar {
+    border-right: none;
+    border-bottom: 1px solid black;
+  }
+
+  /* Login/Signup Forms */
+  .login-form-grid-c,
+  .signup-grid-c {
+    grid-template-columns: 1fr;
+    margin: 20px 10px;
+  }
+  .Login-flex-c,
+  .SignUp-flex-c {
+    height: auto;
+    padding: 20px 0;
+  }
+
+  .form-signup-login > div > input {
+    width: 100%;
+    max-width: 230px;
+  }
+
+  .form-signup-login > div > button {
+    height: 60px;
+    padding: 10px 25px;
+  }
+
+  /* Expense Form */
+  .form-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(10, auto);
+  }
+
+  .fields {
+    margin-bottom: 10px;
+  }
+
+  .add-btn-form {
+    grid-column-start: 1;
+  }
+
+  .form-div {
+    width: 90%;
+    padding: 20px 10px;
+    margin: 0 auto;
+  }
+
+  .table-grid {
+    width: 95vw;
+    height: auto;
+    padding: 10px;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  .filter-div {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sort-btns-div {
+    flex-wrap: wrap;
+  }
+
+  /* Visualization Grid */
+  .viz-grid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .viz,
+  .pie {
+    margin: 10px;
+    height: 300px;
+  }
+
+  /* Verification Page */
+  .verify-flex {
+    margin: 20px 10px;
+    height: auto;
+    padding: 20px 0;
+  }
+
+  .verify-grid {
+    height: auto;
+    padding: 20px 0;
+  }
+
+  /* Buttons */
+  .btns {
+    height: 60px;
+    padding: 10px 20px;
+  }
+
+  .home-btns {
+    flex-direction: column;
+  }
+
+  .pagination-btns {
+    flex-wrap: wrap;
+  }
+
+  .back-btn-div > button {
+    height: 60px;
+    padding: 10px 20px;
+  }
+
+  /* Input fields and forms */
+  input, select, textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Extra Small Devices */
+@media screen and (max-width: 480px) {
+  .header-list-flex {
+    flex-direction: column;
+  }
+
+  .btns-div {
+    margin-bottom: 10px;
+  }
+
+  .form-signup-login > div > label {
+    font-size: large;
+  }
+
+  table {
+    font-size: 14px;
+    margin-left: 130px;
+  }
+
+  th, td {
+    padding: 3px 5px;
+  }
+
+  .headings {
+    font-size: medium;
+  }
+
+  .sidepanel p {
+    font-size: 18px;
+    padding: 8px 8px 8px 16px;
+  }
+
+  .openbtn {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+}
